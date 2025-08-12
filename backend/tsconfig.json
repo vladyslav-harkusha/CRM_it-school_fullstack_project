@@ -3,7 +3,10 @@
     "target": "ESNext",
     "module": "ESNext",
     "moduleResolution": "node",
-    "rootDir": "./src",
+    "paths": {
+      "@shared/*": ["../shared/*"]
+    },
+//    "rootDir": "./src",
     "outDir": "./dist",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
