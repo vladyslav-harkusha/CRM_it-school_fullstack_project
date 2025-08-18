@@ -1,7 +1,8 @@
-import { RoleEnum } from "@shared/enums/role.enum";
-import { IUser } from "@shared/interfaces/user.interface";
 import { model, Schema } from "mongoose";
 import path from "path";
+
+import { RoleEnum } from "../../../shared/enums/role.enum";
+import { IUser } from "../../../shared/interfaces/user.interface";
 
 const userSchema = new Schema(
     {

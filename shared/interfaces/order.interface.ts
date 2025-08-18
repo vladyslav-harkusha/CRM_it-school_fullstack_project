@@ -1,0 +1,24 @@
+import { IBase } from "./base.interface";
+import { CourseNameEnum } from "../enums/course_name.enum";
+import { CourseFormatEnum } from "../enums/course_format.enum";
+import { CourseTypeEnum } from "../enums/course_type.enum";
+import { OrderStatusEnum } from "../enums/order_status.enum";
+
+interface IOrder extends IBase {
+    _id: string;
+    name: string;
+    surname: string;
+    email: string;
+    phone: number;
+    age: number;
+    course: CourseNameEnum;
+    course_format: CourseFormatEnum;
+    course_type: CourseTypeEnum;
+    status: OrderStatusEnum;
+    sum: number;
+    alreadyPaid: number;
+    group: string;
+    manager: string;
+}
+
+export type { IOrder };
