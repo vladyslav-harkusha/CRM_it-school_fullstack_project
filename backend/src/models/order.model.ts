@@ -10,7 +10,7 @@ const orderSchema = new Schema(
     {
         name: { type: String, required: true },
         surname: { type: String, required: true },
-        email: { type: String, required: true, unique: true },
+        email: { type: String, required: true },
         phone: { type: Number, required: true },
         age: { type: Number, required: true },
         course: { enum: CourseNameEnum, type: String, required: true },
