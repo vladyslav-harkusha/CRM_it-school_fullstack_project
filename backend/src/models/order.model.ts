@@ -32,4 +32,4 @@ const orderSchema = new Schema(
     },
 );
 
-export const User = model<IOrder>("order", orderSchema);
+export const Order = model<IOrder>("order", orderSchema);
