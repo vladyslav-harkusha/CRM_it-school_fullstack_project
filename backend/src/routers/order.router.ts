@@ -2,8 +2,6 @@ import { Router } from "express";
 
 import { orderController } from "../controllers/order.controller";
 
-const router = Router();
+export const orderRouter = Router();
 
-router.get("/", orderController.getAll);
-
-export const orderRouter = router;
+orderRouter.get("/", orderController.getAll);
