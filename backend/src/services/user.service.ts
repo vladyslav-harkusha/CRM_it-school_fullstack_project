@@ -1,11 +1,16 @@
 import { StatusCodesEnum } from "../../../shared/enums/status-codes.enum";
-import { IUser } from "../../../shared/interfaces/user.interface";
+import { IUser, IUserCreateDTO } from "../../../shared/interfaces/user.interface";
 import { ApiError } from "../errors/api.error";
 import { userRepository } from "../repositories/user.repository";
 
 class UserService {
     public getAll(): Promise<IUser[]> {
         return userRepository.getAll();
+    }
+
+    public async create(user: IUserCreateDTO): Promise<IUser> {
+        await userService.isEmailUnique(user.email);
+        return await userRepository.create(user);
     }
 
     public async getById(userId: string): Promise<IUser> {
