@@ -23,10 +23,13 @@ class AuthController {
     public async logout(req: Request, res: Response, next: NextFunction) {
         try {
             const tokenPayload = res.locals.tokenPayload as ITokenPayload;
-            const { userId } = tokenPayload;
-            const data = await tokenRepository.deleteByUserId(userId);
+            if (!tokenPayload) {
+                return res.status(StatusCodesEnum.UNAUTHORIZED).json("Invalid token payload");
+            }
 
-            res.status(StatusCodesEnum.NO_CONTENT).json(data);
+            await tokenRepository.deleteByUserId(tokenPayload.userId);
+
+            res.sendStatus(StatusCodesEnum.NO_CONTENT);
         } catch (e) {
             next(e);
         }
