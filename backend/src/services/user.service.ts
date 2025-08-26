@@ -49,8 +49,14 @@ class UserService {
         return userRepository.unbBlockUser(userId);
     }
 
-    public getByEmail(email: string): Promise<IUser> {
-        return userRepository.getByEmail(email);
+    public async getByEmail(email: string): Promise<IUser> {
+        const user = await userRepository.getByEmail(email);
+
+        if (!user) {
+            throw new ApiError("User not found", StatusCodesEnum.NOT_FOUND);
+        }
+
+        return user;
     }
 }
 

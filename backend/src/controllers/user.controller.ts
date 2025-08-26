@@ -2,10 +2,21 @@ import { NextFunction, Request, Response } from "express";
 
 import { StatusCodesEnum } from "../../../shared/enums/status-codes.enum";
 import { ITokenPayload } from "../../../shared/interfaces/token.interface";
+import { IUserCreateDTO } from "../../../shared/interfaces/user.interface";
 import { ApiError } from "../errors/api.error";
 import { userService } from "../services/user.service";
 
 class UserController {
+    public async create(req: Request, res: Response, next: NextFunction) {
+        try {
+            const newUserDTO = req.body as IUserCreateDTO;
+            const data = await userService.create(newUserDTO);
+            res.status(StatusCodesEnum.CREATED).json(data);
+        } catch (e) {
+            next(e);
+        }
+    }
+
     public async getAll(req: Request, res: Response, next: NextFunction) {
         try {
             const data = await userService.getAll();
