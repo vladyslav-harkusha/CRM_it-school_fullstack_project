@@ -7,7 +7,7 @@ import { IUser } from "../../../shared/interfaces/user.interface";
 const userSchema = new Schema(
     {
         email: { type: String, required: true, unique: true },
-        password: { type: String, required: true, default: "" },
+        password: { type: String, default: "" },
         role: {
             enum: RoleEnum,
             type: String,

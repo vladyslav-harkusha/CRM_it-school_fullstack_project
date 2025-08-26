@@ -40,14 +40,14 @@ class AuthService {
         return { user, tokens };
     }
 
-    public async setPasswordRequest(user: IUser): Promise<{ url: string }> {
+    public async setPasswordRequest(user: IUser): Promise<string> {
         const token = tokenService.generateActionToken(
             { userId: user._id, role: user.role },
             ActionTokenTypeEnum.ACTIVATE,
         );
         const url = `${config.FRONTEND_URL}/activate/${token}`;
 
-        return { url };
+        return url;
     }
 
     public async setPassword(token: string, password: string): Promise<IUser> {
@@ -57,14 +57,14 @@ class AuthService {
         return await userService.updateById(userId, { password: hashedPassword, isActive: true });
     }
 
-    public async passwordRecoveryRequest(user: IUser): Promise<{ url: string }> {
+    public async passwordRecoveryRequest(user: IUser): Promise<string> {
         const token = tokenService.generateActionToken(
             { userId: user._id, role: user.role },
             ActionTokenTypeEnum.RECOVERY,
         );
         const url = `${config.FRONTEND_URL}/recovery/${token}`;
 
-        return { url };
+        return url;
     }
 
     public async recoveryPassword(token: string, password: string): Promise<IUser> {
