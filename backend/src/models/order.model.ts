@@ -1,9 +1,9 @@
 import { model, Schema } from "mongoose";
 
-import { CourseFormatEnum } from "../../../shared/enums/course_format.enum";
-import { CourseNameEnum } from "../../../shared/enums/course_name.enum";
-import { CourseTypeEnum } from "../../../shared/enums/course_type.enum";
-import { OrderStatusEnum } from "../../../shared/enums/order_status.enum";
+import { CourseFormatEnum } from "../../../shared/enums/course-format.enum";
+import { CourseNameEnum } from "../../../shared/enums/course-name.enum";
+import { CourseTypeEnum } from "../../../shared/enums/course-type.enum";
+import { OrderStatusEnum } from "../../../shared/enums/order-status.enum";
 import { IOrder } from "../../../shared/interfaces/order.interface";
 
 const orderSchema = new Schema(

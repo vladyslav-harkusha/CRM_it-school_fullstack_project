@@ -1,8 +1,8 @@
 import { IBase } from "./base.interface";
-import { CourseNameEnum } from "../enums/course_name.enum";
-import { CourseFormatEnum } from "../enums/course_format.enum";
-import { CourseTypeEnum } from "../enums/course_type.enum";
-import { OrderStatusEnum } from "../enums/order_status.enum";
+import { CourseNameEnum } from "../enums/course-name.enum";
+import { CourseFormatEnum } from "../enums/course-format.enum";
+import { CourseTypeEnum } from "../enums/course-type.enum";
+import { OrderStatusEnum } from "../enums/order-status.enum";
 
 interface IOrder extends IBase {
     _id: string;
