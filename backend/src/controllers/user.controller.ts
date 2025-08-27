@@ -65,6 +65,21 @@ class UserController {
             next(e);
         }
     }
+
+    public async deleteUser(req: Request, res: Response, next: NextFunction) {
+        try {
+            const { id: userId } = req.params;
+            const { userId: myId } = req.res.locals.tokenPayload as ITokenPayload;
+            if (userId === myId) {
+                throw new ApiError("Not permitted", StatusCodesEnum.FORBIDDEN);
+            }
+
+            const deletedUser = await userService.deleteUser(userId);
+            res.status(StatusCodesEnum.OK).json(deletedUser);
+        } catch (e) {
+            next(e);
+        }
+    }
 }
 
 export const userController = new UserController();

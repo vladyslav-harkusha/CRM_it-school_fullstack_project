@@ -49,6 +49,10 @@ class UserService {
         return userRepository.unbBlockUser(userId);
     }
 
+    public deleteUser(userId: string): Promise<IUser> {
+        return userRepository.deleteUser(userId);
+    }
+
     public async getByEmail(email: string): Promise<IUser> {
         const user = await userRepository.getByEmail(email);
 

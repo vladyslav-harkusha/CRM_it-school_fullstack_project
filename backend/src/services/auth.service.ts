@@ -31,6 +31,10 @@ class AuthService {
             throw new ApiError("Account was blocked by admin", StatusCodesEnum.FORBIDDEN);
         }
 
+        if (user.isDeleted) {
+            throw new ApiError("Account was deleted", StatusCodesEnum.FORBIDDEN);
+        }
+
         const tokens = tokenService.generateTokens({
             userId: user._id,
             role: user.role,

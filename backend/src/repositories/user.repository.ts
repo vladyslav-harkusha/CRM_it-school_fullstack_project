@@ -3,7 +3,7 @@ import { User } from "../models/user.model";
 
 class UserRepository {
     public getAll(): Promise<IUser[]> {
-        return User.find().sort({ createdAt: -1 });
+        return User.find({ isDeleted: false }).sort({ createdAt: -1 });
     }
 
     public create(user: IUserCreateDTO): Promise<IUser> {
@@ -28,6 +28,10 @@ class UserRepository {
 
     public unbBlockUser(userId: string): Promise<IUser> {
         return User.findByIdAndUpdate(userId, { isBlocked: false }, { new: true });
+    }
+
+    public deleteUser(userId: string): Promise<IUser> {
+        return User.findByIdAndUpdate(userId, { isDeleted: true }, { new: true });
     }
 }
 

@@ -40,3 +40,11 @@ userRouter.patch(
     commonMiddleware.isIdValid("id"),
     userController.unBlockUser,
 );
+
+userRouter.patch(
+    "/:id/delete",
+    authMiddleware.checkAccessToken,
+    authMiddleware.isAdmin,
+    commonMiddleware.isIdValid("id"),
+    userController.deleteUser,
+);
