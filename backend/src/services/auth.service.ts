@@ -49,7 +49,7 @@ class AuthService {
             { userId: user._id, role: user.role },
             ActionTokenTypeEnum.ACTIVATE,
         );
-        const url = `${config.FRONTEND_URL}/activate/${token}`;
+        const url = `${config.FRONTEND_URL}/set-password/${token}`;
 
         return url;
     }
@@ -59,23 +59,6 @@ class AuthService {
         const hashedPassword = await passwordService.hashPassword(password);
 
         return await userService.updateById(userId, { password: hashedPassword, isActive: true });
-    }
-
-    public async passwordRecoveryRequest(user: IUser): Promise<string> {
-        const token = tokenService.generateActionToken(
-            { userId: user._id, role: user.role },
-            ActionTokenTypeEnum.RECOVERY,
-        );
-        const url = `${config.FRONTEND_URL}/recovery/${token}`;
-
-        return url;
-    }
-
-    public async recoveryPassword(token: string, password: string): Promise<IUser> {
-        const { userId } = tokenService.verifyToken(token, ActionTokenTypeEnum.RECOVERY);
-        const hashedPassword = await passwordService.hashPassword(password);
-
-        return await userService.updateById(userId, { password: hashedPassword });
     }
 }
 
