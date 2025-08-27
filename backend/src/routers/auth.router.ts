@@ -31,15 +31,3 @@ authRouter.post(
     commonMiddleware.validateBody(AuthValidator.validatePassword),
     authController.setPassword,
 );
-
-authRouter.post(
-    "/recovery",
-    commonMiddleware.validateBody(AuthValidator.recoveryEmail),
-    authController.passwordRecoveryRequest,
-);
-
-authRouter.post(
-    "/recovery/:token",
-    commonMiddleware.validateBody(AuthValidator.validatePassword),
-    authController.recoveryPassword,
-);
