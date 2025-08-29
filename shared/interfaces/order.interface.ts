@@ -16,9 +16,11 @@ interface IOrder extends IBase {
     course_type: CourseTypeEnum;
     status: OrderStatusEnum;
     sum: number;
-    alreadyPaid: number;
+    already_paid: number;
     group: string;
     manager: string;
+    utm: string;
+    msg: string;
 }
 
 export type { IOrder };
