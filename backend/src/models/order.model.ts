@@ -24,7 +24,8 @@ const orderSchema = new Schema(
         },
         sum: { type: Number, default: 0 },
         alreadyPaid: { type: Number, default: 0 },
-        manager: { type: String, default: "" },
+        group: { type: String, default: null },
+        manager: { type: String, default: null },
     },
     {
         timestamps: true,
