@@ -21,6 +21,9 @@ interface IOrder extends IBase {
     manager: string;
     utm: string;
     msg: string;
+    comments: string[];
 }
 
-export type { IOrder };
+type IOrderUpdateDTO = Pick<IOrder, "name" | "surname" | "email" | "phone" | "age" | "course" | "course_format" | "course_type" | "already_paid" | "sum" | "status" | "group">;
+
+export type { IOrder, IOrderUpdateDTO };

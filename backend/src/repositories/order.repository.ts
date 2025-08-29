@@ -1,7 +1,7 @@
 import { FilterQuery } from "mongoose";
 
 import { QuerySearchEnum } from "../../../shared/enums/query-search.enum";
-import { IOrder } from "../../../shared/interfaces/order.interface";
+import { IOrder, IOrderUpdateDTO } from "../../../shared/interfaces/order.interface";
 import { IQueryParams } from "../../../shared/interfaces/query-params.interface";
 import { Order } from "../models/order.model";
 
@@ -23,6 +23,14 @@ class OrderRepository {
             Order.find(filterObject).limit(query.pageSize).skip(skip).sort(query.order),
             Order.find(filterObject).countDocuments(),
         ]);
+    }
+
+    public getById(orderId: string): Promise<IOrder> {
+        return Order.findById(orderId);
+    }
+
+    public updateById(orderId: string, updateData: IOrderUpdateDTO): Promise<IOrder> {
+        return Order.findByIdAndUpdate(orderId, updateData, { new: true });
     }
 }
 
