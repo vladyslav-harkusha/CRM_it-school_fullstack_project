@@ -1,5 +1,6 @@
 import { FilterQuery } from "mongoose";
 
+import { QuerySearchEnum } from "../../../shared/enums/query-search.enum";
 import { IOrder } from "../../../shared/interfaces/order.interface";
 import { IQueryParams } from "../../../shared/interfaces/query-params.interface";
 import { Order } from "../models/order.model";
@@ -7,26 +8,16 @@ import { Order } from "../models/order.model";
 class OrderRepository {
     public getAll(query: IQueryParams): Promise<[IOrder[], number]> {
         const skip = query.pageSize * (query.page - 1);
-        const filterObject: FilterQuery<IOrder> = {};
 
-        if (query.search) {
-            filterObject.$or = [
-                { name: { $regex: query.search, $options: "i" } },
-                { surname: { $regex: query.search, $options: "i" } },
-                { email: { $regex: query.search, $options: "i" } },
-                { phone: { $regex: query.search, $options: "i" } },
-                { age: { $regex: query.search, $options: "i" } },
-                { course: { $regex: query.search, $options: "i" } },
-                { course_format: { $regex: query.search, $options: "i" } },
-                { course_type: { $regex: query.search, $options: "i" } },
-                { status: { $regex: query.search, $options: "i" } },
-                { sum: { $regex: query.search, $options: "i" } },
-                { already_paid: { $regex: query.search, $options: "i" } },
-                { group: { $regex: query.search, $options: "i" } },
-                { created_at: { $regex: query.search, $options: "i" } },
-                { manager: { $regex: query.search, $options: "i" } },
-            ];
-        }
+        const orConditions: FilterQuery<IOrder>[] = Object.values(QuerySearchEnum)
+            .filter((field) => query[field])
+            .map((field) => {
+                if (field === "age") return { age: Number(query.age) };
+
+                return { [field]: { $regex: query[field], $options: "i" } };
+            });
+
+        const filterObject = orConditions.length > 0 ? { $or: orConditions } : {};
 
         return Promise.all([
             Order.find(filterObject).limit(query.pageSize).skip(skip).sort(query.order),

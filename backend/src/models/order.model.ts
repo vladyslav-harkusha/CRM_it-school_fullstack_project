@@ -11,7 +11,7 @@ const orderSchema = new Schema(
         name: { type: String, required: true, default: null },
         surname: { type: String, required: true, default: null },
         email: { type: String, required: true, default: null },
-        phone: { type: Number, required: true, default: null },
+        phone: { type: String, required: true, default: null },
         age: { type: Number, required: true, default: null },
         course: { enum: CourseNameEnum, type: String, required: true },
         course_format: { enum: CourseFormatEnum, type: String, required: true },

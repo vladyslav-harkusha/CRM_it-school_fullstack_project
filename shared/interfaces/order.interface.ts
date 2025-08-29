@@ -9,7 +9,7 @@ interface IOrder extends IBase {
     name: string;
     surname: string;
     email: string;
-    phone: number;
+    phone: string;
     age: number;
     course: CourseNameEnum;
     course_format: CourseFormatEnum;
