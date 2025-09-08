@@ -4,10 +4,11 @@ import type { IOrder } from "../../shared/interfaces/order.interface.ts";
 
 export const App: FC = () => {
     const [orders, setOrders] = useState<IOrder[]>([]);
-    console.log(orders);
+    console.log(import.meta.env.VITE_API_BASE_URL);
+    
 
     useEffect(() => {
-        axios.get(`http://localhost:7000/orders`)
+        axios.get(`${import.meta.env.VITE_API_BASE_URL}/orders`)
             .then(({data}) => setOrders(data.data));
     }, [])
     
