@@ -1,4 +1,4 @@
-import { IBase } from "./base.interface";
+import type { IBase } from "./base.interface";
 import { CourseNameEnum } from "../enums/course-name.enum";
 import { CourseFormatEnum } from "../enums/course-format.enum";
 import { CourseTypeEnum } from "../enums/course-type.enum";

@@ -1,5 +1,5 @@
 import { RoleEnum } from "../enums/role.enum";
-import { IBase } from "./base.interface";
+import type { IBase } from "./base.interface";
 
 interface IUser extends IBase {
     _id: string;
