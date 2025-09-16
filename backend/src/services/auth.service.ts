@@ -11,7 +11,7 @@ import { tokenService } from "./token.service";
 import { userService } from "./user.service";
 
 class AuthService {
-    public async login(dto: IUserSignInDTO): Promise<{ user: IUser; tokens: ITokenPair }> {
+    public async login(dto: IUserSignInDTO): Promise<ITokenPair> {
         const user = await userRepository.getByEmail(dto.email);
         if (!user) {
             throw new ApiError("Email or password invalid", StatusCodesEnum.UNAUTHORIZED);
@@ -41,7 +41,7 @@ class AuthService {
         });
         await tokenRepository.create({ ...tokens, _userId: user._id });
 
-        return { user, tokens };
+        return tokens;
     }
 
     public async setPasswordRequest(user: IUser): Promise<string> {
