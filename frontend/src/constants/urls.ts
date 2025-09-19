@@ -2,7 +2,7 @@ const auth = "/auth";
 const orders = "/orders";
 const users = "/users";
 
-export const urls = {
+export const URLS = {
     auth: {
         login: `${auth}/login`,
         logout: `${auth}/logout`,
@@ -12,4 +12,4 @@ export const urls = {
     },
     orders,
     users,
-};
+} as const;

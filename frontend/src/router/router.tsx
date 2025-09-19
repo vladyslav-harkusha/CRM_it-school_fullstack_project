@@ -4,18 +4,18 @@ import { MainLayout } from "../layouts/MainLayout.tsx";
 import { AdminPanelPage } from "../pages/admin-panel-page/AdminPanelPage.tsx";
 import { LoginPage } from "../pages/login-page/LoginPage.tsx";
 import { OrdersPage } from "../pages/orders-page/OrdersPage.tsx";
-import { EndpointsEnum } from "./endpoints.enum.ts";
+import { ROUTES } from "./routes.ts";
 
 export const router = createBrowserRouter([
     {
-        path: "/",
+        path: ROUTES.HOME,
         element: <MainLayout />,
         children: [
-            { index: true, element: <Navigate to={EndpointsEnum.ORDERS} /> },
-            { path: EndpointsEnum.LOGIN, element: <LoginPage /> },
-            { path: EndpointsEnum.ORDERS, element: <OrdersPage /> },
-            { path: EndpointsEnum.ADMIN_PANEL, element: <AdminPanelPage /> },
-            { path: EndpointsEnum.NOT_FOUND, element: <AdminPanelPage /> },
+            { index: true, element: <Navigate to={ROUTES.ORDERS} /> },
+            { path: ROUTES.LOGIN, element: <LoginPage /> },
+            { path: ROUTES.ORDERS, element: <OrdersPage /> },
+            { path: ROUTES.ADMIN_PANEL, element: <AdminPanelPage /> },
+            { path: ROUTES.NOT_FOUND, element: <AdminPanelPage /> },
         ],
     },
 ]);
