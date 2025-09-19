@@ -1,22 +1,20 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 
-import type { IOrder } from "../../../../shared/interfaces/order.interface.ts";
+import { ordersService } from "../../services/orders-service.ts";
 
 export const OrdersPage = () => {
-    const [orders, setOrders] = useState<IOrder[]>([]);
+    const { data, error } = useQuery({
+        queryKey: ["orders"],
+        queryFn: ordersService.getAll,
+    });
 
-    useEffect(() => {
-        axios
-            .get(`${import.meta.env.VITE_API_BASE_URL}/orders`)
-            .then(({ data }) => setOrders(data.data));
-    }, []);
+    if (error) return <h3>{error.message}</h3>;
 
     return (
         <>
             <h2>Orders</h2>
             <ul>
-                {orders.map((order) => (
+                {data?.data.map((order) => (
                     <li key={order._id}>{JSON.stringify(order)}</li>
                 ))}
             </ul>

@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { AxiosResponse } from "axios";
 
 import { authService } from "./auth-service.ts";
@@ -19,3 +19,13 @@ apiService.interceptors.request.use((req) => {
 
     return req;
 });
+
+apiService.interceptors.response.use(
+    (response) => response,
+    (error: AxiosError) => {
+        if (error.response) {
+            return Promise.reject(error.response.data);
+        }
+        return Promise.reject(error);
+    },
+);

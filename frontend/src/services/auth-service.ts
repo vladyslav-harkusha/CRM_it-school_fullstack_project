@@ -2,19 +2,19 @@ import { ITokenPair } from "../../../shared/interfaces/token.interface.ts";
 import { IUser, IUserSignInDTO } from "../../../shared/interfaces/user.interface.ts";
 import { TOKENS } from "../constants/tokens.ts";
 import { URLS } from "../constants/urls.ts";
-import { ApiResponseType, apiService } from "./api-service.ts";
+import { apiService } from "./api-service.ts";
 
 export const authService = {
     async login(user: IUserSignInDTO): Promise<IUser> {
         const { data } = await apiService.post(URLS.auth.login, user);
         this.setTokens(data.tokens);
-        const { data: me } = await this.me();
 
-        return me;
+        return await this.me();
     },
 
-    me(): ApiResponseType<IUser> {
-        return apiService.get(URLS.auth.me);
+    async me(): Promise<IUser> {
+        const { data } = await apiService.get(URLS.auth.me);
+        return data;
     },
 
     setTokens({ accessToken, refreshToken }: ITokenPair): void {
