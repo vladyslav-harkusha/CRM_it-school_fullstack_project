@@ -6,8 +6,10 @@ import tseslint from "typescript-eslint";
 import { globalIgnores } from "eslint/config";
 import simpleImportSort from "eslint-plugin-simple-import-sort";
 import prettierPlugin from "eslint-plugin-prettier";
+import pluginQuery from "@tanstack/eslint-plugin-query";
 
 export default tseslint.config([
+    ...pluginQuery.configs["flat/recommended"],
     globalIgnores(["dist"]),
     {
         files: ["**/*.{ts,tsx}"],
