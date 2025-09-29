@@ -1,9 +1,17 @@
 import axios, { AxiosError } from "axios";
-import { AxiosResponse } from "axios";
 
 import { authService } from "./auth-service.ts";
 
-export type ApiResponseType<T> = Promise<AxiosResponse<T>>;
+export class ApiError extends Error {
+    status: number;
+    data?: unknown;
+
+    constructor(status: number, message: string, data?: unknown) {
+        super(message);
+        this.status = status;
+        this.data = data;
+    }
+}
 
 export const apiService = axios.create({
     baseURL: import.meta.env.VITE_API_BASE_URL,
@@ -24,8 +32,12 @@ apiService.interceptors.response.use(
     (response) => response,
     (error: AxiosError) => {
         if (error.response) {
-            return Promise.reject(error.response.data);
+            const status = error.response.status;
+            const data = error.response.data as { status?: number; message?: string };
+
+            throw new ApiError(status, data?.message ?? "Unknown error", data);
         }
-        return Promise.reject(error);
+
+        throw new ApiError(0, error.message);
     },
 );
