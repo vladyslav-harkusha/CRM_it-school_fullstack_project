@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 
+import { Loader } from "../../../../components/UI/loader/Loader.tsx";
 import { ApiError } from "../../../../services/api-service.ts";
 import { ordersService } from "../../../../services/orders-service.ts";
 import { OrderItem } from "../order-item/OrderItem.tsx";
@@ -9,20 +10,19 @@ export const OrdersTable = () => {
     const { data, error, isError } = useQuery({
         queryKey: ["orders"],
         queryFn: ordersService.getAll,
+        retry: false,
     });
 
     if (isError && error instanceof ApiError) {
         return (
-            <p style={{ color: "red" }}>
-                {error.status}: {error.message}
+            <p className="text-rose-600 font-bold text-center mt-40">
+                Error status: {error.status} - {error.message}
             </p>
         );
     }
 
     const orders = data?.data;
-    if (!orders || orders.length === 0) {
-        return <p>No orders to show</p>;
-    }
+    if (!orders || orders.length === 0) return <Loader />;
 
     return (
         <table className="border w-full">
