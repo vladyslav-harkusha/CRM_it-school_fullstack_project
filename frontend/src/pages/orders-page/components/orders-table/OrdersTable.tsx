@@ -1,6 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { Loader } from "../../../../components/UI/loader/Loader.tsx";
 import { ApiError } from "../../../../services/api-service.ts";
 import { ordersService } from "../../../../services/orders-service.ts";
 import { OrderItem } from "../order-item/OrderItem.tsx";
@@ -21,9 +20,6 @@ export const OrdersTable = () => {
         );
     }
 
-    const orders = data?.data;
-    if (!orders || orders.length === 0) return <Loader />;
-
     return (
         <table className="border w-full">
             <thead>
@@ -39,7 +35,7 @@ export const OrdersTable = () => {
                 </tr>
             </thead>
             <tbody>
-                {orders.map((order) => (
+                {data?.data.map((order) => (
                     <OrderItem key={order._id} order={order} tableColumns={tableColumns} />
                 ))}
             </tbody>
