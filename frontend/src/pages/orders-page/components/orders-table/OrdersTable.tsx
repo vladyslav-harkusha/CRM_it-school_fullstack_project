@@ -10,7 +10,7 @@ export const OrdersTable = () => {
     const { data, error, isError } = useQuery({
         queryKey: ["orders"],
         queryFn: ordersService.getAll,
-        retry: false,
+        retry: 1,
     });
 
     if (isError && error instanceof ApiError) {
