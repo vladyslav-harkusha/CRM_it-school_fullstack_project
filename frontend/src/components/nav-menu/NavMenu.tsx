@@ -13,7 +13,7 @@ export const NavMenu = () => {
 
     return (
         <nav>
-            <ul className="flex gap-6 font-bold text-gray-500 uppercase border-transparent">
+            <ul className="flex gap-6 font-bold text-gray-500 uppercase">
                 {links.map((link) => (
                     <li key={link.name}>
                         <NavLink className={linkStyles} to={link.endpoint}>
