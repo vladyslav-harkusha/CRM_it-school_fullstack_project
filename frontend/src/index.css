@@ -9,3 +9,7 @@
 .dark {
     @apply bg-gray-700 text-gray-100;
 }
+
+body {
+    @apply max-w-[1600px] mx-auto;
+}
