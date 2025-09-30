@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 
+import { ErrorInfo } from "../../../../components/UI/error-info/ErrorInfo.tsx";
 import { Loader } from "../../../../components/UI/loader/Loader.tsx";
-import { ApiError } from "../../../../services/api-service.ts";
 import { ordersService } from "../../../../services/orders-service.ts";
 import { OrderItem } from "../order-item/OrderItem.tsx";
 import { tableColumns } from "./table-columns.constant.ts";
@@ -13,14 +13,7 @@ export const OrdersTable = () => {
         retry: 1,
     });
 
-    if (isError) {
-        const err = error as ApiError;
-        return (
-            <p className="text-rose-600 font-bold text-center mt-40">
-                Error status: {err.status} - {err.message}
-            </p>
-        );
-    }
+    if (isError) return <ErrorInfo error={error} dataName="orders" />;
 
     if (isPending) return <Loader />;
 
