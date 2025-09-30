@@ -1,8 +1,8 @@
 .loaderWrapper {
-  margin: 0 auto;
+  margin: 20vh auto;
   position: relative;
-  width: 100px;
-  height: 100px;
+  width: 130px;
+  height: 130px;
   perspective: 780px;
   transition: 1s;
 
@@ -10,7 +10,7 @@
     position: absolute;
     width: 12px;
     height: 12px;
-    background-color: #5C5EDC;
+    background-color: lightyellow;
     border: 1px solid #ffb700;
     border-radius: 50%;
     top: 50%;
@@ -29,19 +29,19 @@
       left: 0;
       top: 0;
       animation: inner-elem_rotate-one 1.3s linear infinite;
-      border-bottom: 4px solid lightblue;
+      border-bottom: 5px solid grey;
     }
     &Two {
       right: 0;
       top: 0;
       animation: inner-elem_rotate-two 1.3s linear infinite;
-      border-right: 4px solid #ffb700;
+      border-right: 5px solid #ffb700;
     }
     &Three {
       right: 0;
       bottom: 0;
       animation: inner-elem_rotate-three 1.3s linear infinite;
-      border-top: 4px solid #5C5EDC;
+      border-top: 5px solid #5C5EDC;
     }
   }
 }

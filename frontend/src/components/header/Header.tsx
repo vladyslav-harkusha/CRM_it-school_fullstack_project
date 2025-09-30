@@ -1,8 +1,11 @@
+import { AccountInfo } from "../account-info/AccountInfo.tsx";
 import { NavMenu } from "../nav-menu/NavMenu.tsx";
 import { ThemeSwitcher } from "../theme-switcher/ThemeSwitcher.tsx";
 import { MainLogo } from "../UI/main-logo/MainLogo.tsx";
 
 export const Header = () => {
+    const isAuth = true;
+
     return (
         <header
             className="
@@ -14,6 +17,7 @@ export const Header = () => {
             <MainLogo />
             <ThemeSwitcher />
             <NavMenu />
+            {isAuth && <AccountInfo />}
         </header>
     );
 };

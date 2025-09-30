@@ -7,21 +7,22 @@ import { OrderItem } from "../order-item/OrderItem.tsx";
 import { tableColumns } from "./table-columns.constant.ts";
 
 export const OrdersTable = () => {
-    const { data, error, isError, isLoading } = useQuery({
+    const { data, error, isError, isPending } = useQuery({
         queryKey: ["orders"],
         queryFn: ordersService.getAll,
         retry: 1,
     });
 
-    if (isError && error instanceof ApiError) {
+    if (isError) {
+        const err = error as ApiError;
         return (
             <p className="text-rose-600 font-bold text-center mt-40">
-                Error status: {error.status} - {error.message}
+                Error status: {err.status} - {err.message}
             </p>
         );
     }
 
-    if (isLoading) return <Loader />;
+    if (isPending) return <Loader />;
 
     return (
         <table className="w-full bg-amber-400">
@@ -38,7 +39,7 @@ export const OrdersTable = () => {
                 </tr>
             </thead>
             <tbody>
-                {data?.data.map((order) => (
+                {data.data.map((order) => (
                     <OrderItem key={order._id} order={order} tableColumns={tableColumns} />
                 ))}
             </tbody>
