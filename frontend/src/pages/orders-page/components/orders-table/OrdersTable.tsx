@@ -21,13 +21,13 @@ export const OrdersTable = () => {
     }
 
     return (
-        <table className="border w-full">
+        <table className="w-full bg-amber-400">
             <thead>
                 <tr>
                     {tableColumns.map((column) => (
                         <th
                             key={column}
-                            className="border-2 border-amber-400 bg-gray-500 px-2 py-1 text-amber-400 cursor-pointer"
+                            className="border-2 border-amber-400 rounded-t-3xl bg-gray-500 px-2 py-1 text-amber-400 cursor-pointer"
                         >
                             {column}
                         </th>

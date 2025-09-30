@@ -26,7 +26,7 @@ export const ThemeSwitcher = () => {
     return (
         <div className="theme-switcher">
             <button
-                className="border-2 border-teal-500 p-1 rounded cursor-pointer hover:bg-teal-100 duration-300"
+                className="bg-gray-300 border-2 border-teal-500 p-1 rounded cursor-pointer hover:bg-teal-100 duration-300"
                 onClick={toggleTheme}
             >
                 <span>{buttonText}</span>
