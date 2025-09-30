@@ -1,12 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 
+import { Loader } from "../../../../components/UI/loader/Loader.tsx";
 import { ApiError } from "../../../../services/api-service.ts";
 import { ordersService } from "../../../../services/orders-service.ts";
 import { OrderItem } from "../order-item/OrderItem.tsx";
 import { tableColumns } from "./table-columns.constant.ts";
 
 export const OrdersTable = () => {
-    const { data, error, isError } = useQuery({
+    const { data, error, isError, isLoading } = useQuery({
         queryKey: ["orders"],
         queryFn: ordersService.getAll,
         retry: 1,
@@ -19,6 +20,8 @@ export const OrdersTable = () => {
             </p>
         );
     }
+
+    if (isLoading) return <Loader />;
 
     return (
         <table className="w-full bg-amber-400">
