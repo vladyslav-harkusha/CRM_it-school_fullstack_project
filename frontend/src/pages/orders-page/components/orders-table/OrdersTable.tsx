@@ -18,13 +18,13 @@ export const OrdersTable = () => {
     if (isPending) return <Loader />;
 
     return (
-        <table className="w-full bg-amber-400">
+        <table className="w-full bg-[var(--c-orange)] border-2 border-[var(--c-orange)]">
             <thead>
                 <tr>
                     {tableColumns.map((column) => (
                         <th
                             key={column}
-                            className="border-2 border-amber-400 rounded-t-3xl bg-gray-500 px-2 py-1 text-amber-400 cursor-pointer"
+                            className="border-2 border-[var(--c-orange)] rounded-t-3xl bg-[var(--c-table-head)] px-2 py-1 text-[var(--c-orange)] cursor-pointer"
                         >
                             {column}
                         </th>

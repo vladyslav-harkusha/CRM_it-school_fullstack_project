@@ -8,12 +8,14 @@ export const NavMenu = () => {
     const links = isAuth ? navLinks.private : navLinks.public;
 
     const linkStyles = ({ isActive }: { isActive: boolean }) =>
-        "py-1 px-2 rounded-2xl border-x-3 hover:border-gray-500 duration-300 " +
-        (isActive ? "border-gray-700 text-gray-700 hover:border-gray-700" : "border-transparent");
+        "py-1 px-2 rounded-2xl border-x-3 hover:border-[var(--c-table-head)] duration-300 " +
+        (isActive
+            ? "border-[var(--c-header-links)] text-[var(--c-header-links)] hover:border-[var(--c-header-links)]"
+            : "border-transparent");
 
     return (
         <nav>
-            <ul className="flex gap-6 font-bold text-gray-500 uppercase">
+            <ul className="flex gap-6 font-bold text-[var(--c-table-head)] uppercase">
                 {links.map((link) => (
                     <li key={link.name}>
                         <NavLink className={linkStyles} to={link.endpoint}>

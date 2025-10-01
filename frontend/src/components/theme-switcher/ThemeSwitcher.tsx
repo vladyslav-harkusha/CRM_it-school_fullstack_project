@@ -26,10 +26,13 @@ export const ThemeSwitcher = () => {
     return (
         <div className="theme-switcher">
             <button
-                className="bg-gray-300 border-2 border-teal-500 p-1 rounded cursor-pointer hover:bg-teal-100 duration-300"
                 onClick={toggleTheme}
+                className="
+                    bg-[var(--c-table-head)] border-2 border-[var(--c-header-links)] rounded-2xl text-[var(--c-orange)] uppercase
+                    cursor-pointer hover:bg-[var(--c-header-links)] duration-300
+                "
             >
-                <span>{buttonText}</span>
+                <p className="w-[170px]">{buttonText}</p>
             </button>
         </div>
     );
