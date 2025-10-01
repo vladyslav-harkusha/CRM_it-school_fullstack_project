@@ -1,24 +1,14 @@
-import { useQuery } from "@tanstack/react-query";
-
-import { ErrorInfo } from "../../../../components/UI/error-info/ErrorInfo.tsx";
-import { Loader } from "../../../../components/UI/loader/Loader.tsx";
-import { ordersService } from "../../../../services/orders-service.ts";
+import { IOrder } from "../../../../../../shared/interfaces/order.interface.ts";
 import { OrderItem } from "../order-item/OrderItem.tsx";
 import { tableColumns } from "./table-columns.constant.ts";
 
-export const OrdersTable = () => {
-    const { data, error, isError, isPending } = useQuery({
-        queryKey: ["orders"],
-        queryFn: ordersService.getAll,
-        retry: 1,
-    });
+type Props = {
+    orders: IOrder[];
+};
 
-    if (isError) return <ErrorInfo error={error} dataName="orders" />;
-
-    if (isPending) return <Loader />;
-
+export const OrdersTable = ({ orders }: Props) => {
     return (
-        <table className="w-full bg-[var(--c-orange)] border-2 border-[var(--c-orange)]">
+        <table className="w-full overflow-y-auto bg-[var(--c-orange)] border-2 border-[var(--c-orange)]">
             <thead>
                 <tr>
                     {tableColumns.map((column) => (
@@ -32,7 +22,7 @@ export const OrdersTable = () => {
                 </tr>
             </thead>
             <tbody>
-                {data.data.map((order) => (
+                {orders.map((order) => (
                     <OrderItem key={order._id} order={order} tableColumns={tableColumns} />
                 ))}
             </tbody>

@@ -9,7 +9,7 @@ export const Header = () => {
     return (
         <header
             className="
-                h-16 px-10 flex items-center justify-between gap-5
+                h-[7vh] px-10 flex items-center justify-between gap-5
                 bg-[var(--c-orange)] border-2 border-[var(--c-table-head)]
                 shadow-[inset_0px_0px_10px_rgba(0,0,0,0.7)]
             "

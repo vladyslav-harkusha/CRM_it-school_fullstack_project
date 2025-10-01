@@ -1,12 +1,11 @@
 interface IQueryParams {
     pageSize: number;
     page: number;
-    search?: string;
     name?: string;
     surname?: string;
     email?: string;
     phone?: string;
-    age?: string;
+    age?: number;
     order?: string;
 }
 
