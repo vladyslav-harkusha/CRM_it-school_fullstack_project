@@ -13,25 +13,20 @@ export const Pagination: FC<Props> = memo(
     ({ currPage, pageSize, totalItems, totalPages, isPending }) => {
         const [, setSearchParams] = useSearchParams();
 
-        const handlePrevPage = () => {
-            const prevPage = currPage > 1 ? currPage - 1 : currPage;
-            setSearchParams((prev) => {
-                prev.set("page", prevPage.toString());
-                return prev;
-            });
-        };
+        const pagesArr = totalPages ? Array.from({ length: totalPages }, (_, i) => i + 1) : [];
 
-        const handleNextPage = () => {
-            const nextPage = Number(totalPages) > currPage ? currPage + 1 : currPage;
+        const onButtonClick = (page: number) => {
             setSearchParams((prev) => {
-                prev.set("page", nextPage.toString());
+                prev.set("page", page.toString());
                 return prev;
             });
         };
 
         const handlePerPage = (event: ChangeEvent<HTMLInputElement>) => {
+            const value = Math.min(Math.max(Number(event.target.value), 1), totalItems ?? 1);
+
             setSearchParams((prev) => {
-                prev.set("pageSize", String(event.target.value));
+                prev.set("pageSize", String(value));
                 prev.set("page", "1");
                 return prev;
             });
@@ -39,19 +34,26 @@ export const Pagination: FC<Props> = memo(
 
         return (
             <div className="my-5 flex flex-col items-center">
-                <div className="flex gap-5">
-                    <button onClick={handlePrevPage} disabled={isPending}>
-                        {`<< Prev ${pageSize}`}
-                    </button>
-
-                    <button onClick={handleNextPage} disabled={isPending}>
-                        {`Next ${pageSize} >>`}
-                    </button>
+                <div className="flex gap-2 mt-4">
+                    {pagesArr.map((page) => (
+                        <button
+                            key={page}
+                            onClick={() => onButtonClick(page)}
+                            disabled={isPending}
+                            className={`px-3 py-1 rounded-md border
+                            ${
+                                currPage === page
+                                    ? "bg-amber-400 text-white border-amber-500"
+                                    : "bg-white text-gray-700 border-gray-300 hover:bg-gray-200"
+                            }
+                            `}
+                        >
+                            {page}
+                        </button>
+                    ))}
                 </div>
 
                 <div className="flex items-center justify-center gap-5 font-bold text-[var(--c-table-head)]">
-                    <p>Page: {currPage}</p>
-                    <p>Total pages: {totalPages}</p>
                     <label htmlFor="perPage">
                         <span>Page size: </span>
                         <input
