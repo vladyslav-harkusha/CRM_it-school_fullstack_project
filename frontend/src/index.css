@@ -13,7 +13,8 @@ body {
 @theme {
     /* amber-400 */
     --c-orange: #fbbf24;
-
+    /* amber-200 */
+    --c-orange-light: #fde68a;
     /* slate-200 */
     --c-bg: #e2e8f0;
     /* slate-200 */
@@ -29,6 +30,7 @@ body {
 
 :root.dark {
     --c-orange: #62748e;
+    --c-orange-light: #62748e;
     --c-bg: #1d293d;
     --c-table-row1: #1d293d;
     --c-table-row2: #334155;

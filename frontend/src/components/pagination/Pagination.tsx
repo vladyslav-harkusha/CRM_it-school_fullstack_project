@@ -1,3 +1,4 @@
+import cn from "classnames";
 import { ChangeEvent, FC, memo } from "react";
 import { useSearchParams } from "react-router-dom";
 
@@ -33,20 +34,19 @@ export const Pagination: FC<Props> = memo(
         };
 
         return (
-            <div className="my-5 flex flex-col items-center">
+            <div className="my-5 flex flex-col items-center gap-5">
                 <div className="flex gap-2 mt-4">
                     {pagesArr.map((page) => (
                         <button
                             key={page}
                             onClick={() => onButtonClick(page)}
                             disabled={isPending}
-                            className={`px-3 py-1 rounded-md border
-                            ${
+                            className={cn(
+                                "w-9 h-9 rounded-md border-2 cursor-pointer duration-300",
                                 currPage === page
-                                    ? "bg-amber-400 text-white border-amber-500"
-                                    : "bg-white text-gray-700 border-gray-300 hover:bg-gray-200"
-                            }
-                            `}
+                                    ? "bg-[var(--c-orange)] text-[var(--c-text)] border-[var(--c-table-head)] font-bold"
+                                    : "bg-[var(--c-table-row2)] text-[var(--c-text)] border-[var(--c-orange)] hover:bg-[var(--c-orange-light)]",
+                            )}
                         >
                             {page}
                         </button>
