@@ -1,20 +1,23 @@
 export const createPagesArr = (
     pagesCount: number | undefined,
     currPage: number,
-    buttonsCount = 7,
+    windowSize = 7,
 ): string[] => {
     if (!pagesCount || pagesCount < 1) return [];
-
-    if (pagesCount <= buttonsCount) {
+    if (pagesCount <= windowSize)
         return Array.from({ length: pagesCount }, (_, i) => String(i + 1));
-    }
 
     const firstPage = 1;
     const lastPage = pagesCount;
-    const middleWindow = buttonsCount - 2;
-    const start = Math.max(currPage - Math.floor(middleWindow / 2), 2);
-    const end = Math.min(start + middleWindow - 1, lastPage - 1);
-    const pages = [String(firstPage)];
+    const middleWindow = windowSize - 2;
+    let start = Math.max(currPage - Math.floor(middleWindow / 2), 2);
+    let end = start + middleWindow - 1;
+    const pages = [`${firstPage}`];
+
+    if (end >= lastPage) {
+        end = lastPage - 1;
+        start = end - middleWindow + 1;
+    }
 
     if (start > 2) pages.push("...");
 
@@ -27,7 +30,7 @@ export const createPagesArr = (
     pages.push(String(lastPage));
 
     if (currPage > 1) pages.unshift("<");
-    if (currPage < pagesCount) pages.push(">");
+    if (currPage < lastPage) pages.push(">");
 
     return pages;
 };
