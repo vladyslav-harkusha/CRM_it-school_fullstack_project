@@ -2,6 +2,8 @@ import cn from "classnames";
 import { ChangeEvent, FC, memo } from "react";
 import { useSearchParams } from "react-router-dom";
 
+import { createPagesArr } from "./createPagesArr.ts";
+
 type Props = {
     currPage: number;
     pageSize: number;
@@ -13,12 +15,17 @@ type Props = {
 export const Pagination: FC<Props> = memo(
     ({ currPage, pageSize, totalItems, totalPages, isPending }) => {
         const [, setSearchParams] = useSearchParams();
+        const pagesArr = createPagesArr(totalPages, currPage);
 
-        const pagesArr = totalPages ? Array.from({ length: totalPages }, (_, i) => i + 1) : [];
-
-        const onButtonClick = (page: number) => {
+        const onButtonClick = (page: string) => {
             setSearchParams((prev) => {
-                prev.set("page", page.toString());
+                if (page === "<") {
+                    prev.set("page", String(currPage - 1));
+                } else if (page === ">") {
+                    prev.set("page", String(currPage + 1));
+                } else {
+                    prev.set("page", page);
+                }
                 return prev;
             });
         };
@@ -40,10 +47,11 @@ export const Pagination: FC<Props> = memo(
                         <button
                             key={page}
                             onClick={() => onButtonClick(page)}
-                            disabled={isPending}
+                            disabled={isPending || page === "..."}
                             className={cn(
-                                "w-9 h-9 rounded-md border-2 cursor-pointer duration-300",
-                                currPage === page
+                                "w-10 h-9 rounded-xl border-2 cursor-pointer duration-300",
+                                "disabled:cursor-default disabled:hover:bg-[var(--c-table-row2)]",
+                                currPage === +page
                                     ? "bg-[var(--c-orange)] text-[var(--c-text)] border-[var(--c-table-head)] font-bold"
                                     : "bg-[var(--c-table-row2)] text-[var(--c-text)] border-[var(--c-orange)] hover:bg-[var(--c-orange-light)]",
                             )}
