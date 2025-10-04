@@ -12,7 +12,7 @@ export const OrderItem = ({ tableColumns, order, openOrderId, toggleOrderId }: P
         <>
             <tr
                 onClick={() => toggleOrderId(order._id)}
-                className="odd:bg-[var(--c-table-row1)] even:bg-[var(--c-table-row2)] hover:bg-[var(--c-orange)] duration-300 cursor-pointer"
+                className="data-row hover:bg-[var(--c-orange)] duration-300 cursor-pointer"
             >
                 {tableColumns.map((column) => (
                     <td className="max-w-[220px] truncate pl-[10px]" key={column}>
@@ -23,10 +23,12 @@ export const OrderItem = ({ tableColumns, order, openOrderId, toggleOrderId }: P
                 ))}
             </tr>
             {openOrderId === order._id && (
-                <div className="w-full h-20 bg-rose-500">
-                    <p>{order.utm || "null"}</p>
-                    <p>{order.msg || "null"}</p>
-                </div>
+                <tr className="h-20">
+                    <td colSpan={tableColumns.length}>
+                        <p>{order.utm || "null"}</p>
+                        <p>{order.msg || "null"}</p>
+                    </td>
+                </tr>
             )}
         </>
     );

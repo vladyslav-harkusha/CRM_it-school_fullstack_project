@@ -30,7 +30,7 @@ export const OrdersTable = ({ orders }: Props) => {
                         ))}
                     </tr>
                 </thead>
-                <tbody>
+                <tbody className="[&>tr.data-row:nth-child(odd)]:bg-[var(--c-table-row1)] [&>tr.data-row:nth-child(even)]:bg-[var(--c-table-row2)]">
                     {orders.map((order) => (
                         <OrderItem
                             key={order._id}
