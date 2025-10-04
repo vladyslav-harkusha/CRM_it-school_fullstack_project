@@ -46,9 +46,9 @@ export const Pagination = ({ currPage, pageSize, totalItems, totalPages, isPendi
                     <ButtonPagination
                         key={page}
                         page={page}
+                        currentPage={currPage}
                         onClick={onButtonClick}
                         isPending={isPending}
-                        currentPage={currPage}
                     />
                 ))}
             </div>
