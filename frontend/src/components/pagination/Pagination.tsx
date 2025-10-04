@@ -1,7 +1,7 @@
-import cn from "classnames";
 import { ChangeEvent } from "react";
 import { useSearchParams } from "react-router-dom";
 
+import { ButtonPagination } from "../UI/button-pagination/ButtonPagination.tsx";
 import { createPagesArr } from "./createPagesArr.ts";
 
 type Props = {
@@ -43,20 +43,13 @@ export const Pagination = ({ currPage, pageSize, totalItems, totalPages, isPendi
         <div className="my-5 flex justify-center items-center gap-10">
             <div className="flex gap-2">
                 {pagesArr.map((page) => (
-                    <button
+                    <ButtonPagination
                         key={page}
-                        onClick={() => onButtonClick(page)}
-                        disabled={isPending || page === "..."}
-                        className={cn(
-                            "w-10 h-9 rounded-xl border-2 cursor-pointer duration-300",
-                            "disabled:cursor-default disabled:hover:bg-[var(--c-table-row2)]",
-                            currPage === +page
-                                ? "bg-[var(--c-orange)] text-[var(--c-text)] border-[var(--c-table-head)] font-bold"
-                                : "bg-[var(--c-table-row2)] text-[var(--c-text)] border-[var(--c-orange)] hover:bg-[var(--c-orange-light)]",
-                        )}
-                    >
-                        {page}
-                    </button>
+                        page={page}
+                        onClick={onButtonClick}
+                        isPending={isPending}
+                        currentPage={currPage}
+                    />
                 ))}
             </div>
 
