@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import { IOrder } from "../../../../../../shared/interfaces/order.interface.ts";
 import { OrderItem } from "../order-item/OrderItem.tsx";
 import { tableColumns } from "./table-columns.constant.ts";
@@ -7,6 +9,12 @@ type Props = {
 };
 
 export const OrdersTable = ({ orders }: Props) => {
+    const [openOrderId, setOpenOrderId] = useState<string | null>(null);
+
+    const toggleOrderId = (id: string) => {
+        setOpenOrderId(openOrderId === id ? null : id);
+    };
+
     return (
         <div className="w-full overflow-y-auto border-2 border-[var(--c-orange)]">
             <table className="w-full bg-[var(--c-orange)] ">
@@ -24,7 +32,13 @@ export const OrdersTable = ({ orders }: Props) => {
                 </thead>
                 <tbody>
                     {orders.map((order) => (
-                        <OrderItem key={order._id} order={order} tableColumns={tableColumns} />
+                        <OrderItem
+                            key={order._id}
+                            order={order}
+                            tableColumns={tableColumns}
+                            openOrderId={openOrderId}
+                            toggleOrderId={toggleOrderId}
+                        />
                     ))}
                 </tbody>
             </table>
