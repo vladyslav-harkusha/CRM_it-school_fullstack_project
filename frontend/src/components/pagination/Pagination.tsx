@@ -42,9 +42,9 @@ export const Pagination = ({ currPage, pageSize, totalItems, totalPages, isPendi
     return (
         <div className="my-5 flex justify-center items-center gap-10">
             <div className="flex gap-2">
-                {pagesArr.map((page) => (
+                {pagesArr.map((page, index) => (
                     <ButtonPagination
-                        key={page}
+                        key={page === "..." ? `dots-${index}` : page}
                         page={page}
                         currentPage={currPage}
                         onClick={onButtonClick}
