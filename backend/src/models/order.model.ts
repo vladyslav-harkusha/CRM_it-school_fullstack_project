@@ -28,6 +28,7 @@ const orderSchema = new Schema(
         manager: { type: String, default: null },
         utm: { type: String, default: null },
         msg: { type: String, default: null },
+        comments: { type: [String], default: [] },
     },
     {
         timestamps: true,
