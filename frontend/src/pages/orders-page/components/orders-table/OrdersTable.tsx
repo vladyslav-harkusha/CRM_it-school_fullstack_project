@@ -30,14 +30,15 @@ export const OrdersTable = ({ orders }: Props) => {
                         ))}
                     </tr>
                 </thead>
-                <tbody className="[&>tr.data-row:nth-child(odd)]:bg-[var(--c-table-row1)] [&>tr.data-row:nth-child(even)]:bg-[var(--c-table-row2)]">
-                    {orders.map((order) => (
+                <tbody>
+                    {orders.map((order, index) => (
                         <OrderItem
                             key={order._id}
                             order={order}
                             tableColumns={tableColumns}
                             openOrderId={openOrderId}
                             toggleOrderId={toggleOrderId}
+                            rowIndex={index}
                         />
                     ))}
                 </tbody>
