@@ -13,11 +13,8 @@ type Props = {
 export const OrdersTable = ({ orders, isFetching }: Props) => {
     const [openOrderId, setOpenOrderId] = useState<string | null>(null);
 
-    const toggleOrderId = (id: string) => {
-        if (isFetching) return;
-
-        setOpenOrderId(openOrderId === id ? null : id);
-    };
+    const toggleOrderId = (id: string) =>
+        !isFetching && setOpenOrderId(openOrderId === id ? null : id);
 
     return (
         <div
