@@ -1,4 +1,5 @@
 export enum QueryOrderEnum {
+    ID = "_id",
     NAME = "name",
     SURNAME = "surname",
     EMAIL = "email",
