@@ -1,3 +1,4 @@
+import cn from "classnames";
 import { useState } from "react";
 
 import { IOrder } from "../../../../../../shared/interfaces/order.interface.ts";
@@ -6,17 +7,25 @@ import { tableColumns } from "./table-columns.constant.ts";
 
 type Props = {
     orders: IOrder[];
+    isFetching: boolean;
 };
 
-export const OrdersTable = ({ orders }: Props) => {
+export const OrdersTable = ({ orders, isFetching }: Props) => {
     const [openOrderId, setOpenOrderId] = useState<string | null>(null);
 
     const toggleOrderId = (id: string) => {
+        if (isFetching) return;
+
         setOpenOrderId(openOrderId === id ? null : id);
     };
 
     return (
-        <div className="w-full overflow-y-auto border-2 border-[var(--c-orange)]">
+        <div
+            className={cn(
+                "w-full overflow-y-auto border-2 border-[var(--c-orange)]",
+                isFetching && "opacity-50",
+            )}
+        >
             <table className="w-full bg-[var(--c-orange)] ">
                 <thead>
                     <tr>

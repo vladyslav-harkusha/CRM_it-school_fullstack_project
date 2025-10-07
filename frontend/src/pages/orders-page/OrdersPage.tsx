@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "react-router-dom";
 
 import { Pagination } from "../../components/pagination/Pagination.tsx";
@@ -12,23 +12,24 @@ export const OrdersPage = () => {
     const page = Number(searchParams.get("page")) || 1;
     const pageSize = Number(searchParams.get("pageSize")) || 25;
 
-    const { data, error, isError, isPending } = useQuery({
+    const { data, error, isError, isPending, isFetching } = useQuery({
         queryKey: ["orders", page, pageSize],
         queryFn: () => ordersService.getAll({ page, pageSize }),
         retry: 1,
+        placeholderData: keepPreviousData,
     });
 
     if (isError) return <ErrorInfo error={error} dataName="orders" />;
 
     return (
         <div className="h-[93vh] flex flex-col items-center justify-between">
-            {isPending ? <Loader /> : <OrdersTable orders={data.data} />}
+            {isPending ? <Loader /> : <OrdersTable orders={data.data} isFetching={isFetching} />}
 
             <Pagination
                 totalItems={data?.totalItems || 500}
                 currPage={page}
                 pageSize={pageSize}
-                isPending={isPending}
+                isFetching={isFetching}
             />
         </div>
     );
