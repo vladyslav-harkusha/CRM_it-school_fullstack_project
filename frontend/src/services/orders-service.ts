@@ -5,9 +5,13 @@ import { URLS } from "../constants/urls";
 import { apiService } from "./api-service";
 
 export const ordersService = {
-    async getAll(queryParams?: IQueryParams): Promise<IPaginatedResponse<IOrder>> {
+    async getAll(
+        queryParams?: IQueryParams,
+        signal?: AbortSignal,
+    ): Promise<IPaginatedResponse<IOrder>> {
         const { data } = await apiService.get<IPaginatedResponse<IOrder>>(URLS.orders, {
             params: queryParams,
+            signal,
         });
 
         return data;

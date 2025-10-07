@@ -8,10 +8,9 @@ type Props = {
     currPage: number;
     pageSize: number;
     totalItems: number;
-    isFetching: boolean;
 };
 
-export const Pagination = ({ currPage, pageSize, totalItems, isFetching }: Props) => {
+export const Pagination = ({ currPage, pageSize, totalItems }: Props) => {
     const [, setSearchParams] = useSearchParams();
     const totalPages = Math.ceil(totalItems / pageSize);
     const pagesArr = createPagesArr(totalPages, currPage);
@@ -35,12 +34,11 @@ export const Pagination = ({ currPage, pageSize, totalItems, isFetching }: Props
                         page={page}
                         currentPage={currPage}
                         onClick={onButtonClick}
-                        isFetching={isFetching}
                     />
                 ))}
             </div>
 
-            <PaginationInput pageSize={pageSize} totalItems={totalItems} isFetching={isFetching} />
+            <PaginationInput pageSize={pageSize} totalItems={totalItems} />
         </div>
     );
 };

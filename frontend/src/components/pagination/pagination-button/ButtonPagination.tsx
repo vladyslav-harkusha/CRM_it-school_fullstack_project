@@ -3,15 +3,14 @@ import cn from "classnames";
 type Props = {
     page: string;
     onClick: (page: string) => void;
-    isFetching: boolean;
     currentPage: number;
 };
 
-export const PaginationButton = ({ page, onClick, isFetching, currentPage }: Props) => {
+export const PaginationButton = ({ page, onClick, currentPage }: Props) => {
     return (
         <button
             onClick={() => onClick(page)}
-            disabled={isFetching || page === "..."}
+            disabled={page === "..."}
             className={cn(
                 "w-10 h-9 rounded-xl border-2 cursor-pointer duration-300",
                 "disabled:cursor-default disabled:hover:bg-[var(--c-table-row2)] disabled:border-none",

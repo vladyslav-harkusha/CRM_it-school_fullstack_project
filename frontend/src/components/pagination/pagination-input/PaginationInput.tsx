@@ -5,10 +5,9 @@ import { useSearchParams } from "react-router-dom";
 type Props = {
     pageSize: number;
     totalItems: number;
-    isFetching: boolean;
 };
 
-export const PaginationInput = ({ pageSize, totalItems, isFetching }: Props) => {
+export const PaginationInput = ({ pageSize, totalItems }: Props) => {
     const [localPageSize, setLocalPageSize] = useState(pageSize);
     const [, setSearchParams] = useSearchParams();
 
@@ -49,7 +48,6 @@ export const PaginationInput = ({ pageSize, totalItems, isFetching }: Props) => 
                     id="perPage"
                     value={localPageSize}
                     onChange={handlePerPage}
-                    disabled={isFetching}
                 />
             </label>
         </div>

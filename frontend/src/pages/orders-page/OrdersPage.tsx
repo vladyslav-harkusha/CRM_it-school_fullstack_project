@@ -14,7 +14,7 @@ export const OrdersPage = () => {
 
     const { data, error, isError, isPending, isFetching } = useQuery({
         queryKey: ["orders", page, pageSize],
-        queryFn: () => ordersService.getAll({ page, pageSize }),
+        queryFn: ({ signal }) => ordersService.getAll({ page, pageSize }, signal),
         retry: 1,
         placeholderData: keepPreviousData,
     });
@@ -25,12 +25,7 @@ export const OrdersPage = () => {
         <div className="h-[93vh] flex flex-col items-center justify-between">
             {isPending ? <Loader /> : <OrdersTable orders={data.data} isFetching={isFetching} />}
 
-            <Pagination
-                totalItems={data?.totalItems || 500}
-                currPage={page}
-                pageSize={pageSize}
-                isFetching={isFetching}
-            />
+            <Pagination totalItems={data?.totalItems || 500} currPage={page} pageSize={pageSize} />
         </div>
     );
 };
