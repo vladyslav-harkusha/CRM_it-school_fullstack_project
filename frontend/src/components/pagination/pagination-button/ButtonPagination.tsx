@@ -7,7 +7,7 @@ type Props = {
     currentPage: number;
 };
 
-export const ButtonPagination = ({ page, onClick, isPending, currentPage }: Props) => {
+export const PaginationButton = ({ page, onClick, isPending, currentPage }: Props) => {
     return (
         <button
             onClick={() => onClick(page)}

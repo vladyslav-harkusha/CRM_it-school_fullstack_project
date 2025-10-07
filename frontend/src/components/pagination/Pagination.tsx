@@ -1,8 +1,8 @@
-import { ChangeEvent } from "react";
 import { useSearchParams } from "react-router-dom";
 
-import { ButtonPagination } from "../UI/button-pagination/ButtonPagination.tsx";
 import { createPagesArr } from "./createPagesArr.ts";
+import { PaginationButton } from "./pagination-button/ButtonPagination.tsx";
+import { PaginationInput } from "./pagination-input/PaginationInput.tsx";
 
 type Props = {
     currPage: number;
@@ -18,23 +18,10 @@ export const Pagination = ({ currPage, pageSize, totalItems, isPending }: Props)
 
     const onButtonClick = (page: string) => {
         setSearchParams((prev) => {
-            if (page === "<") {
-                prev.set("page", String(currPage - 1));
-            } else if (page === ">") {
-                prev.set("page", String(currPage + 1));
-            } else {
-                prev.set("page", page);
-            }
-            return prev;
-        });
-    };
+            if (page === "<") prev.set("page", String(currPage - 1));
+            else if (page === ">") prev.set("page", String(currPage + 1));
+            else prev.set("page", page);
 
-    const handlePerPage = (event: ChangeEvent<HTMLInputElement>) => {
-        const value = Math.min(Number(event.target.value), 100);
-
-        setSearchParams((prev) => {
-            prev.set("pageSize", String(value));
-            prev.set("page", "1");
             return prev;
         });
     };
@@ -43,7 +30,7 @@ export const Pagination = ({ currPage, pageSize, totalItems, isPending }: Props)
         <div className="my-5 flex justify-center items-center gap-10">
             <div className="flex gap-2">
                 {pagesArr.map((page, index) => (
-                    <ButtonPagination
+                    <PaginationButton
                         key={page === "..." ? `dots-${index}` : page}
                         page={page}
                         currentPage={currPage}
@@ -53,21 +40,7 @@ export const Pagination = ({ currPage, pageSize, totalItems, isPending }: Props)
                 ))}
             </div>
 
-            <div className="flex items-center justify-center gap-5 font-bold text-[var(--c-table-head)]">
-                <label htmlFor="perPage">
-                    <span>Page size: </span>
-                    <input
-                        min="1"
-                        max={totalItems}
-                        className="w-12 p-[2px] border-2 border-[var(--c-orange)] rounded-lg text-[var(--c-header-links)] cursor-pointer"
-                        type="number"
-                        id="perPage"
-                        value={pageSize}
-                        onChange={handlePerPage}
-                        disabled={isPending}
-                    />
-                </label>
-            </div>
+            <PaginationInput pageSize={pageSize} totalItems={totalItems} isPending={isPending} />
         </div>
     );
 };
