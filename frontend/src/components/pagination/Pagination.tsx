@@ -7,13 +7,13 @@ import { createPagesArr } from "./createPagesArr.ts";
 type Props = {
     currPage: number;
     pageSize: number;
-    totalItems: number | undefined;
-    totalPages: number | undefined;
+    totalItems: number;
     isPending: boolean;
 };
 
-export const Pagination = ({ currPage, pageSize, totalItems, totalPages, isPending }: Props) => {
+export const Pagination = ({ currPage, pageSize, totalItems, isPending }: Props) => {
     const [, setSearchParams] = useSearchParams();
+    const totalPages = Math.ceil(totalItems / pageSize);
     const pagesArr = createPagesArr(totalPages, currPage);
 
     const onButtonClick = (page: string) => {

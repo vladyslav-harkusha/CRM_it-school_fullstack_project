@@ -25,8 +25,7 @@ export const OrdersPage = () => {
             {isPending ? <Loader /> : <OrdersTable orders={data.data} />}
 
             <Pagination
-                totalItems={data?.totalItems}
-                totalPages={data?.totalPages}
+                totalItems={data?.totalItems || 500}
                 currPage={page}
                 pageSize={pageSize}
                 isPending={isPending}
