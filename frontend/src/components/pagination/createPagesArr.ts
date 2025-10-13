@@ -29,8 +29,8 @@ export const createPagesArr = (
 
     pages.push(String(lastPage));
 
-    if (currPage > 1) pages.unshift("<");
-    if (currPage < lastPage) pages.push(">");
+    if (currPage > 1) pages.unshift("⬅");
+    if (currPage < lastPage) pages.push("➡");
 
     return pages;
 };

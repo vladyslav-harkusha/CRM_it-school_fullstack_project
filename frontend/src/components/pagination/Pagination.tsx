@@ -17,8 +17,8 @@ export const Pagination = ({ currPage, pageSize, totalItems }: Props) => {
 
     const onButtonClick = (page: string) => {
         setSearchParams((prev) => {
-            if (page === "<") prev.set("page", String(currPage - 1));
-            else if (page === ">") prev.set("page", String(currPage + 1));
+            if (page === "⬅") prev.set("page", String(currPage - 1));
+            else if (page === "➡") prev.set("page", String(currPage + 1));
             else prev.set("page", page);
 
             return prev;
