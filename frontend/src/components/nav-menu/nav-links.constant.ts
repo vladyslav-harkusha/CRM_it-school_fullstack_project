@@ -9,6 +9,6 @@ export const navLinks = {
         { name: "About", endpoint: ROUTES.ABOUT },
         { name: "Orders", endpoint: ROUTES.ORDERS },
         { name: "Admin panel", endpoint: ROUTES.ADMIN_PANEL },
-        { name: "Logout", endpoint: ROUTES.LOGIN },
+        { name: "Logout", endpoint: ROUTES.LOGOUT },
     ],
 } as const;
