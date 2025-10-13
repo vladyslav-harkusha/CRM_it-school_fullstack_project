@@ -13,8 +13,8 @@ type Props = {
 
 export const OrdersTable = ({ orders, isFetching }: Props) => {
     const [openOrderId, setOpenOrderId] = useState<string | null>(null);
-    const [, setSearchParams] = useSearchParams();
     const [sortField, setSortField] = useState<keyof IOrder | `-${keyof IOrder}`>("-created_at");
+    const [, setSearchParams] = useSearchParams();
 
     const toggleOrderId = (id: string) =>
         !isFetching && setOpenOrderId(openOrderId === id ? null : id);
@@ -61,6 +61,7 @@ export const OrdersTable = ({ orders, isFetching }: Props) => {
                         ))}
                     </tr>
                 </thead>
+
                 <tbody>
                     {orders.map((order, index) => (
                         <OrderItem
