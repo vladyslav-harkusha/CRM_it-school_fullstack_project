@@ -9,7 +9,7 @@ export const authRouter = Router();
 
 authRouter.post("/login", authController.login);
 
-authRouter.post("/logout", authMiddleware.checkAccessToken, authController.logout);
+authRouter.delete("/logout", authMiddleware.checkAccessToken, authController.logout);
 
 authRouter.get("/me", authMiddleware.checkAccessToken, authController.me);
 

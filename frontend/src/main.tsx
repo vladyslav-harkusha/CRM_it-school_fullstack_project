@@ -5,6 +5,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { createRoot } from "react-dom/client";
 import { RouterProvider } from "react-router-dom";
 
+import { AuthProvider } from "./context/auth/AuthProvider.tsx";
 import { router } from "./router/router.tsx";
 
 const queryClient = new QueryClient({
@@ -19,7 +20,9 @@ const queryClient = new QueryClient({
 
 createRoot(document.getElementById("root")!).render(
     <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
-        <ReactQueryDevtools initialIsOpen={false} />
+        <AuthProvider>
+            <RouterProvider router={router} />
+            <ReactQueryDevtools initialIsOpen={false} />
+        </AuthProvider>
     </QueryClientProvider>,
 );

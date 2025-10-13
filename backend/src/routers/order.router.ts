@@ -10,7 +10,7 @@ export const orderRouter = Router();
 
 orderRouter.get(
     "/",
-    // authMiddleware.checkAccessToken,
+    authMiddleware.checkAccessToken,
     commonMiddleware.query(QueryParamsValidator.query),
     orderController.getAll,
 );

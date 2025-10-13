@@ -1,9 +1,10 @@
 import { NavLink } from "react-router-dom";
 
+import { useAuth } from "../../hooks/useAuth.tsx";
 import { navLinks } from "./nav-links.constant.ts";
 
 export const NavMenu = () => {
-    const isAuth = true;
+    const { isAuth } = useAuth();
 
     const links = isAuth ? navLinks.private : navLinks.public;
 

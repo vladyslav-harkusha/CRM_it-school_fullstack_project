@@ -1,10 +1,11 @@
+import { useAuth } from "../../hooks/useAuth.tsx";
 import { AccountInfo } from "../account-info/AccountInfo.tsx";
 import { NavMenu } from "../nav-menu/NavMenu.tsx";
 import { ThemeSwitcher } from "../theme-switcher/ThemeSwitcher.tsx";
 import { MainLogo } from "../UI/main-logo/MainLogo.tsx";
 
 export const Header = () => {
-    const isAuth = true;
+    const { isAuth } = useAuth();
 
     return (
         <header

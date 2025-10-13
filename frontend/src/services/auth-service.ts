@@ -7,7 +7,7 @@ import { apiService } from "./api-service.ts";
 export const authService = {
     async login(user: IUserSignInDTO): Promise<IUser> {
         const { data } = await apiService.post(URLS.auth.login, user);
-        this.setTokens(data.tokens);
+        this.setTokens(data);
 
         return await this.me();
     },
@@ -15,6 +15,12 @@ export const authService = {
     async me(): Promise<IUser> {
         const { data } = await apiService.get(URLS.auth.me);
         return data;
+    },
+
+    async logout(): Promise<void> {
+        await apiService.delete(URLS.auth.logout);
+        localStorage.removeItem(TOKENS.ACCESS);
+        localStorage.removeItem(TOKENS.REFRESH);
     },
 
     setTokens({ accessToken, refreshToken }: ITokenPair): void {
