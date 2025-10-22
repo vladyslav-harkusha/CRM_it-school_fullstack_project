@@ -20,7 +20,7 @@ export const OrdersPage = () => {
         placeholderData: keepPreviousData,
     });
 
-    if (isError) return <ErrorInfo error={error} dataName="orders" />;
+    if (isError) return <ErrorInfo error={error} dataName="Orders Page" />;
 
     return (
         <div className="h-[93vh] flex flex-col items-center justify-between">
