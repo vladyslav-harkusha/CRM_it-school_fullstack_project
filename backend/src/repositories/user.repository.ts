@@ -1,9 +1,18 @@
+import { IQueryParams } from "../../../shared/interfaces/query-params.interface";
 import { IUser, IUserCreateDTO } from "../../../shared/interfaces/user.interface";
 import { User } from "../models/user.model";
 
 class UserRepository {
-    public getAll(): Promise<IUser[]> {
-        return User.find({ isDeleted: false }).sort({ createdAt: -1 });
+    public getAll(query: IQueryParams): Promise<[IUser[], number]> {
+        const skip = query.pageSize * (query.page - 1);
+
+        return Promise.all([
+            User.find({ isDeleted: false })
+                .limit(query.pageSize)
+                .skip(skip)
+                .sort({ createdAt: -1 }),
+            User.find({ isDeleted: false }).countDocuments(),
+        ]);
     }
 
     public create(user: IUserCreateDTO): Promise<IUser> {

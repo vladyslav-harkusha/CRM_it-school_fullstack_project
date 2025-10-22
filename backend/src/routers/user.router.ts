@@ -3,11 +3,18 @@ import { Router } from "express";
 import { userController } from "../controllers/user.controller";
 import { authMiddleware } from "../middlewares/auth.middleware";
 import { commonMiddleware } from "../middlewares/common.middleware";
+import { QueryParamsValidator } from "../validators/query-params.validator";
 import { UserValidator } from "../validators/user.validator";
 
 export const userRouter = Router();
 
-userRouter.get("/", authMiddleware.checkAccessToken, authMiddleware.isAdmin, userController.getAll);
+userRouter.get(
+    "/",
+    authMiddleware.checkAccessToken,
+    authMiddleware.isAdmin,
+    commonMiddleware.query(QueryParamsValidator.query),
+    userController.getAll,
+);
 
 userRouter.get(
     "/:id",

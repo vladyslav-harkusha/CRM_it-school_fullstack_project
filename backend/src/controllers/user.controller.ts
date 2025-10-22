@@ -1,26 +1,28 @@
 import { NextFunction, Request, Response } from "express";
 
 import { StatusCodesEnum } from "../../../shared/enums/status-codes.enum";
+import { IQueryParams } from "../../../shared/interfaces/query-params.interface";
 import { ITokenPayload } from "../../../shared/interfaces/token.interface";
 import { IUserCreateDTO } from "../../../shared/interfaces/user.interface";
 import { ApiError } from "../errors/api.error";
 import { userService } from "../services/user.service";
 
 class UserController {
-    public async create(req: Request, res: Response, next: NextFunction) {
+    public async getAll(req: Request, res: Response, next: NextFunction) {
         try {
-            const newUserDTO = req.body as IUserCreateDTO;
-            const data = await userService.create(newUserDTO);
-            res.status(StatusCodesEnum.CREATED).json(data);
+            const query = res.locals.query as IQueryParams;
+            const data = await userService.getAll(query);
+            res.status(StatusCodesEnum.OK).json(data);
         } catch (e) {
             next(e);
         }
     }
 
-    public async getAll(req: Request, res: Response, next: NextFunction) {
+    public async create(req: Request, res: Response, next: NextFunction) {
         try {
-            const data = await userService.getAll();
-            res.status(StatusCodesEnum.OK).json(data);
+            const newUserDTO = req.body as IUserCreateDTO;
+            const data = await userService.create(newUserDTO);
+            res.status(StatusCodesEnum.CREATED).json(data);
         } catch (e) {
             next(e);
         }
