@@ -37,8 +37,8 @@ export const OrdersTable = ({ orders, isFetching }: Props) => {
                 isFetching && "opacity-50",
             )}
         >
-            <table className="w-full bg-[var(--c-orange)] ">
-                <thead>
+            <table className="w-full bg-[var(--c-orange)] relative">
+                <thead className="sticky top-0 left-0 right-0">
                     <tr>
                         {tableColumns.map((column) => (
                             <th
