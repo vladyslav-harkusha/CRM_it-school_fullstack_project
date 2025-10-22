@@ -18,8 +18,8 @@ export const LogoutPage = () => {
     };
 
     return (
-        <div>
-            <h2>You can logout from app:</h2>
+        <div className="h-[93vh] flex flex-col justify-center items-center gap-5">
+            <h2 className="font-bold">Click to logout from app:</h2>
             <ButtonMain text={"Logout"} onClick={onLogoutClick} />
         </div>
     );
