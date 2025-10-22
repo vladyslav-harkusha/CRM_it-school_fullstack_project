@@ -12,7 +12,7 @@ export const LogoutPage = () => {
         try {
             await logout();
             navigate(ROUTES.LOGIN);
-        } catch (e) {
+        } catch {
             throw new Error("Could not logout");
         }
     };

@@ -4,13 +4,14 @@ type Props = {
     page: string;
     onClick: (page: string) => void;
     currentPage: number;
+    isFetching?: boolean;
 };
 
-export const PaginationButton = ({ page, onClick, currentPage }: Props) => {
+export const ButtonPagination = ({ page, onClick, currentPage, isFetching }: Props) => {
     return (
         <button
             onClick={() => onClick(page)}
-            disabled={page === "..."}
+            disabled={page === "..." || isFetching}
             className={cn(
                 "w-10 h-9 rounded-xl border-2 cursor-pointer duration-300",
                 "disabled:cursor-default disabled:hover:bg-[var(--c-table-row2)] disabled:border-none",

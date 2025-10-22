@@ -1,16 +1,17 @@
 import { useSearchParams } from "react-router-dom";
 
 import { createPagesArr } from "./createPagesArr.ts";
-import { PaginationButton } from "./pagination-button/ButtonPagination.tsx";
+import { ButtonPagination } from "./pagination-button/ButtonPagination.tsx";
 import { PaginationInput } from "./pagination-input/PaginationInput.tsx";
 
 type Props = {
     currPage: number;
     pageSize: number;
     totalItems: number;
+    isFetching?: boolean;
 };
 
-export const Pagination = ({ currPage, pageSize, totalItems }: Props) => {
+export const Pagination = ({ currPage, pageSize, totalItems, isFetching }: Props) => {
     const [, setSearchParams] = useSearchParams();
     const totalPages = Math.ceil(totalItems / pageSize);
     const pagesArr = createPagesArr(totalPages, currPage);
@@ -29,11 +30,12 @@ export const Pagination = ({ currPage, pageSize, totalItems }: Props) => {
         <div className="my-5 flex justify-center items-center gap-10">
             <div className="flex gap-2">
                 {pagesArr.map((page, index) => (
-                    <PaginationButton
+                    <ButtonPagination
                         key={page === "..." ? `dots-${index}` : page}
                         page={page}
                         currentPage={currPage}
                         onClick={onButtonClick}
+                        isFetching={isFetching}
                     />
                 ))}
             </div>
