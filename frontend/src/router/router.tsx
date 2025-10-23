@@ -1,5 +1,6 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
 
+import { ErrorBoundary } from "../components/error-boundary/ErrorBoundary.tsx";
 import { MainLayout } from "../layouts/MainLayout.tsx";
 import { AboutPage } from "../pages/about-page/AboutPage.tsx";
 import { AdminPanelPage } from "../pages/admin-panel-page/AdminPanelPage.tsx";
@@ -20,7 +21,8 @@ export const router = createBrowserRouter([
             { path: ROUTES.ABOUT, element: <AboutPage /> },
             { path: ROUTES.ORDERS, element: <OrdersPage /> },
             { path: ROUTES.ADMIN_PANEL, element: <AdminPanelPage /> },
-            { path: ROUTES.NOT_FOUND, element: <NotFoundPage /> },
+            { path: "*", element: <NotFoundPage /> },
         ],
+        errorElement: <ErrorBoundary />,
     },
 ]);
