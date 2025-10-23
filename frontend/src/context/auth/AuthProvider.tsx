@@ -7,8 +7,23 @@ import { AuthContext } from "./AuthContext.tsx";
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const [user, setUser] = useState<IUser | null>(null);
+    const [isLoading, setIsLoading] = useState(true);
     const queryClient = useQueryClient();
     const isAuth = !!user;
+
+    useEffect(() => {
+        const init = async () => {
+            try {
+                const me = await authService.me();
+                setUser(me);
+            } catch {
+                setUser(null);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+        init();
+    }, []);
 
     const login = async (userData: IUserSignInDTO) => {
         const loggedUser = await authService.login(userData);
@@ -24,23 +39,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         }
     };
 
-    const refreshUser = async () => {
-        try {
-            const me = await authService.me();
-            setUser(me);
-        } catch {
-            setUser(null);
-        }
-    };
-
-    useEffect(() => {
-        if (authService.getAccessToken()) {
-            refreshUser();
-        }
-    }, []);
-
     return (
-        <AuthContext.Provider value={{ user, isAuth, login, logout, refreshUser }}>
+        <AuthContext.Provider value={{ user, isAuth, isLoading, login, logout }}>
             {children}
         </AuthContext.Provider>
     );

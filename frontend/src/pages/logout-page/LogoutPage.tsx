@@ -5,21 +5,23 @@ import { useAuth } from "../../hooks/useAuth.tsx";
 import { ROUTES } from "../../router/routes.ts";
 
 export const LogoutPage = () => {
-    const { logout } = useAuth();
+    const { logout, user } = useAuth();
     const navigate = useNavigate();
 
     const onLogoutClick = async () => {
         try {
             await logout();
+        } finally {
             navigate(ROUTES.LOGIN);
-        } catch {
-            throw new Error("Could not logout");
         }
     };
 
     return (
         <div className="h-[93vh] flex flex-col justify-center items-center gap-5">
-            <h2 className="font-bold">Click to logout from app:</h2>
+            <h2 className="text-3xl font-bold text-[var(--c-table-head)]">
+                {user?.name} {user?.surname}
+            </h2>
+            <p className="font-bold">you can click to logout from app:</p>
             <ButtonMain text={"Logout"} onClick={onLogoutClick} />
         </div>
     );

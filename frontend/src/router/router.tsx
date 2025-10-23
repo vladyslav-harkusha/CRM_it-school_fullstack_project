@@ -8,6 +8,8 @@ import { LoginPage } from "../pages/login-page/LoginPage.tsx";
 import { LogoutPage } from "../pages/logout-page/LogoutPage.tsx";
 import { NotFoundPage } from "../pages/not-found-page/NotFoundPage.tsx";
 import { OrdersPage } from "../pages/orders-page/OrdersPage.tsx";
+import { PrivateRoute } from "./PrivateRoute.tsx";
+import { PublicRoute } from "./PublicRoute.tsx";
 import { ROUTES } from "./routes.ts";
 
 export const router = createBrowserRouter([
@@ -16,11 +18,20 @@ export const router = createBrowserRouter([
         element: <MainLayout />,
         children: [
             { index: true, element: <Navigate to={ROUTES.LOGIN} /> },
-            { path: ROUTES.LOGIN, element: <LoginPage /> },
-            { path: ROUTES.LOGOUT, element: <LogoutPage /> },
             { path: ROUTES.ABOUT, element: <AboutPage /> },
-            { path: ROUTES.ORDERS, element: <OrdersPage /> },
-            { path: ROUTES.ADMIN_PANEL, element: <AdminPanelPage /> },
+            {
+                element: <PublicRoute />,
+                children: [{ path: ROUTES.LOGIN, element: <LoginPage /> }],
+            },
+            {
+                element: <PrivateRoute />,
+                children: [
+                    { path: ROUTES.LOGOUT, element: <LogoutPage /> },
+                    { path: ROUTES.ORDERS, element: <OrdersPage /> },
+                    { path: ROUTES.ADMIN_PANEL, element: <AdminPanelPage /> },
+                ],
+            },
+
             { path: "*", element: <NotFoundPage /> },
         ],
         errorElement: <ErrorBoundary />,

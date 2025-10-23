@@ -5,9 +5,9 @@ import { IUser, IUserSignInDTO } from "../../../../shared/interfaces/user.interf
 interface AuthContextType {
     user: IUser | null;
     isAuth: boolean;
+    isLoading: boolean;
     login: (userData: IUserSignInDTO) => Promise<void>;
     logout: () => Promise<void>;
-    refreshUser: () => Promise<void>;
 }
 
 export const AuthContext = createContext<AuthContextType | null>(null);
