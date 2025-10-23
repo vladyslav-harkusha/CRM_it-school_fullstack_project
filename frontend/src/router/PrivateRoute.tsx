@@ -7,7 +7,7 @@ import { ROUTES } from "./routes";
 export const PrivateRoute = () => {
     const { isAuth, isLoading } = useAuth();
 
-    if (isLoading) return <Loader />;
+    if (isLoading) return <Loader margin_t={35} />;
 
     return isAuth ? <Outlet /> : <Navigate to={ROUTES.LOGIN} replace />;
 };

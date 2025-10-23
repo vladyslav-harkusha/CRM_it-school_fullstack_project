@@ -24,7 +24,11 @@ export const OrdersPage = () => {
 
     return (
         <div className="h-[93vh] flex flex-col items-center justify-between">
-            {isPending ? <Loader /> : <OrdersTable orders={data.data} isFetching={isFetching} />}
+            {isPending ? (
+                <Loader margin_t={35} />
+            ) : (
+                <OrdersTable orders={data.data} isFetching={isFetching} />
+            )}
 
             <Pagination
                 totalItems={data?.totalItems || 500}
