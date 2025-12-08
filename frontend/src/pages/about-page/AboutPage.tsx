@@ -4,7 +4,7 @@ import { techs } from "./techs.constant.ts";
 export const AboutPage = () => {
     return (
         <div className="flex flex-col items-center justify-around text-[var(--c-text)]">
-            <h2 className="text-3xl mt-10 mb-10">About Page</h2>
+            <h2 className="text-3xl mt-10 mb-10">Pet-project: CRM system for IT school</h2>
 
             <p className="text-2xl mb-20">
                 The App was created to practice frontend and backend technologies
