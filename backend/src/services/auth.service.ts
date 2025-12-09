@@ -19,7 +19,7 @@ class AuthService {
 
         const isValidPassword = await passwordService.comparePassword(dto.password, user.password);
 
-        if (!isValidPassword && dto.password !== "admin" && dto.email !== "admin@gmail.com") {
+        if (!isValidPassword) {
             throw new ApiError("Invalid email or password", StatusCodesEnum.UNAUTHORIZED);
         }
 
