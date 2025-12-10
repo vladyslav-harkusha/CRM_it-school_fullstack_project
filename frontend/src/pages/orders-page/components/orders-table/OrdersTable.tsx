@@ -47,7 +47,7 @@ export const OrdersTable = ({ orders, isFetching }: Props) => {
                                 }}
                                 key={column}
                                 className={cn(
-                                    sortField.endsWith(column)
+                                    sortField === column || sortField === `-${column}`
                                         ? "bg-[var(--c-header-links)]"
                                         : "bg-[var(--c-table-head)]",
                                     "rounded-t-2xl  px-2 py-1 text-[var(--c-orange)] cursor-pointer",
