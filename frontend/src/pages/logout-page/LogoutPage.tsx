@@ -5,7 +5,7 @@ import { useAuth } from "../../hooks/useAuth.tsx";
 import { ROUTES } from "../../router/routes.ts";
 
 export const LogoutPage = () => {
-    const { logout, user } = useAuth();
+    const { logout, user, isPendingLogout } = useAuth();
     const navigate = useNavigate();
 
     const onLogoutClick = async () => {
@@ -22,7 +22,12 @@ export const LogoutPage = () => {
                 {user?.name} {user?.surname}
             </h2>
             <p className="font-bold">you can click to logout from app:</p>
-            <ButtonMain text={"Logout"} onClick={onLogoutClick} />
+            <ButtonMain
+                text={isPendingLogout ? "Loading..." : "Logout"}
+                onClick={onLogoutClick}
+                isPending={isPendingLogout}
+                disabled={isPendingLogout}
+            />
         </div>
     );
 };

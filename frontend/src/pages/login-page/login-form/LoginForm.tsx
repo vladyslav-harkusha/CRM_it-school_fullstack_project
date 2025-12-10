@@ -7,7 +7,7 @@ import { useAuth } from "../../../hooks/useAuth.tsx";
 import { LoginSchema, LoginSchemaType } from "../../../validators/login.schema.ts";
 
 export const LoginForm = () => {
-    const { login } = useAuth();
+    const { login, isPendingLogin, isLoadingMe } = useAuth();
     const {
         register,
         handleSubmit,
@@ -32,6 +32,7 @@ export const LoginForm = () => {
                     type: "server",
                     message: "Authorize failed",
                 });
+                console.log(error);
             }
         }
     };
@@ -60,7 +61,11 @@ export const LoginForm = () => {
                 <p className="text-rose-500 font-medium">{errors.root.message}</p>
             )}
 
-            <ButtonMain text={"Submit"} />
+            <ButtonMain
+                text={isPendingLogin || isLoadingMe ? "Loading..." : "Submit"}
+                disabled={isPendingLogin || isLoadingMe}
+                isPending={isPendingLogin || isLoadingMe}
+            />
         </form>
     );
 };

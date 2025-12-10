@@ -1,46 +1,48 @@
-import { useQueryClient } from "@tanstack/react-query";
-import { ReactNode, useEffect, useState } from "react";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { ReactNode } from "react";
 
-import { IUser, IUserSignInDTO } from "../../../../shared/interfaces/user.interface.ts";
+import { IUser } from "../../../../shared/interfaces/user.interface.ts";
 import { authService } from "../../services/auth-service.ts";
 import { AuthContext } from "./AuthContext.tsx";
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-    const [user, setUser] = useState<IUser | null>(null);
-    const [isLoading, setIsLoading] = useState(true);
     const queryClient = useQueryClient();
+
+    const { data: user, isLoading: isLoadingMe } = useQuery<IUser>({
+        queryKey: ["auth", "me"],
+        queryFn: authService.me,
+        retry: false,
+        enabled: Boolean(authService.getAccessToken()),
+    });
+
     const isAuth = !!user;
 
-    useEffect(() => {
-        const init = async () => {
-            try {
-                const me = await authService.me();
-                setUser(me);
-            } catch {
-                setUser(null);
-            } finally {
-                setIsLoading(false);
-            }
-        };
-        init();
-    }, []);
+    const loginMutation = useMutation({
+        mutationFn: authService.login,
+        onSuccess: (loggedUser) => {
+            queryClient.setQueryData(["auth", "me"], loggedUser);
+        },
+    });
 
-    const login = async (userData: IUserSignInDTO) => {
-        const loggedUser = await authService.login(userData);
-        setUser(loggedUser);
-    };
-
-    const logout = async () => {
-        try {
-            await authService.logout();
-        } finally {
-            setUser(null);
-            queryClient.clear();
-        }
-    };
+    const logoutMutation = useMutation({
+        mutationFn: authService.logout,
+        onSuccess: () => {
+            queryClient.removeQueries({ queryKey: ["auth"] });
+        },
+    });
 
     return (
-        <AuthContext.Provider value={{ user, isAuth, isLoading, login, logout }}>
+        <AuthContext.Provider
+            value={{
+                user,
+                isAuth,
+                isLoadingMe,
+                login: loginMutation.mutateAsync,
+                logout: logoutMutation.mutateAsync,
+                isPendingLogin: loginMutation.isPending,
+                isPendingLogout: logoutMutation.isPending,
+            }}
+        >
             {children}
         </AuthContext.Provider>
     );

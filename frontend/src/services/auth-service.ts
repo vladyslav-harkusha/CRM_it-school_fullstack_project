@@ -7,9 +7,9 @@ import { apiService } from "./api-service.ts";
 export const authService = {
     async login(user: IUserSignInDTO): Promise<IUser> {
         const { data } = await apiService.post(URLS.auth.login, user);
-        this.setTokens(data);
+        authService.setTokens(data);
 
-        return await this.me();
+        return await authService.me();
     },
 
     async me(): Promise<IUser> {
