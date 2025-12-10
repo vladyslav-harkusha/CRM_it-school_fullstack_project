@@ -1,7 +1,7 @@
 import { ApiError } from "../../../services/api-service.ts";
 
 type Props = {
-    error: Error | ApiError;
+    error: Error | ApiError | null;
     dataName: string;
 };
 
