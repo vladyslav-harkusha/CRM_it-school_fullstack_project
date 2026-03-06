@@ -2,8 +2,10 @@ import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "react-router-dom";
 
 import { ordersService } from "../services/orders-service.ts";
+import { useAuth } from "./useAuth.tsx";
 
 export const useOrders = () => {
+    const { isAuth } = useAuth();
     const [searchParams] = useSearchParams();
     const page = Number(searchParams.get("page")) || 1;
     const pageSize = Number(searchParams.get("pageSize")) || 25;
@@ -14,6 +16,7 @@ export const useOrders = () => {
         queryFn: ({ signal }) => ordersService.getAll({ page, pageSize, order }, signal),
         retry: 1,
         placeholderData: keepPreviousData,
+        enabled: isAuth,
     });
 
     return {
